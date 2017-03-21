@@ -1,6 +1,6 @@
 {
   "name": "vue-docs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "vue docs",
   "scripts": {
     "prepublish": "npm run compile",
@@ -8,7 +8,7 @@
     "compile": "npm run copy && node_modules/.bin/babel src -d dist"
   },
   "bin": {
-    "vue-docs": "./dist"
+    "vue-docs": "./bin/vue-docs"
   },
   "repository": {
     "type": "git",

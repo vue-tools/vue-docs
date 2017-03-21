@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import md2vue from './md2vue'
 import logger from './logger'
 import webpack from 'webpack'
