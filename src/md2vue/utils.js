@@ -2,7 +2,7 @@ import marked from './marked'
 import logger from '../logger'
 import DomParser from 'dom-parser'
 import { resolve, join, basename } from 'path'
-import { readFileSync, writeFileSync, unlinkSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, unlinkSync, existsSync } from 'fs'
 
 const STATIC_PATH = '../server/static/'
 const DOC_PATH = resolve(join(__dirname, STATIC_PATH, 'docs'))
@@ -12,6 +12,10 @@ let routerCode = [
     'export default {\n',
     '}'
 ]
+
+if (!existsSync(DOC_PATH)) {
+    mkdirSync(DOC_PATH)
+}
 
 export function add(targetPath, destPath) {
     let name, docPath

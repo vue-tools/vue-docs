@@ -1,23 +1,25 @@
 import logger from '../logger'
 import chokidar from 'chokidar'
-import { existsSync } from 'fs'
+import { existsSync, mkdirSync } from 'fs'
 import { add, change, remove } from './utils'
 import { resolve, join, basename, extname } from 'path'
 
 const STATIC_PATH = '../server/static/'
 const PAGE_PATH = resolve(join(__dirname, STATIC_PATH, 'pages'))
 
-export default function (path) {
-    let mdPath, watcher
+if (!existsSync(PAGE_PATH)) {
+    mkdirSync(PAGE_PATH)
+}
 
-    mdPath = resolve(path)
+export default function (mdPath, opts = {}) {
+    mdPath = resolve(mdPath)
     
     if (!existsSync(mdPath)) {
         logger.error(`markdown file directory not exist`)
         return
     }
 
-    watcher = chokidar.watch(mdPath)
+    let watcher = chokidar.watch(mdPath, { ignored: opts.exclude })
     watcher.on('add', (path) => correctExt(path) && add(path, getPagePath(path)))
     watcher.on('change', (path) => correctExt(path) && change(path, getPagePath(path)))
     watcher.on('unlink', (path) => correctExt(path) && remove(path, getPagePath(path)))

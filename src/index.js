@@ -19,7 +19,7 @@ configFile = resolve(join(cwd, args.length ? args.shift() : './docs.conf.js'))
 config = {
     port: 8888,
     webpack: {},
-    md: { dir: cwd },
+    md: { dir: cwd, exclude: '' },
     vue: { dir: join(cwd, 'build') }
 }
 
@@ -30,12 +30,12 @@ if (existsSync(configFile)) {
 config.md.dir = resolve(join(cwd, config.md.dir))
 config.vue.dir = resolve(join(cwd, config.vue.dir))
 
-if (action === 'start') {    
+if (action === 'start') {
     logger.info(`Vue-docs v${packageJson.version} server started at http://0.0.0.0:${config.port}`)
     logger.info(`vue file directory at ${config.vue.dir}`)
     logger.info(`markdown file directory at ${config.md.dir}`)
     
-    md2vue(config.md.dir)
+    md2vue(config.md.dir, config.md)
     createServer(config.webpack).listen(config.port)
 } else if (action === 'build') {
     webpack(merge(buildConfig, config.webpack, {
