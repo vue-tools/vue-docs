@@ -2,13 +2,13 @@ import logger from '../logger'
 import chokidar from 'chokidar'
 import { existsSync, mkdirSync } from 'fs'
 import { add, change, remove } from './utils'
-import { resolve, join, basename, extname } from 'path'
+import { resolve, join, basename, extname, isAbsolute } from 'path'
 
 const STATIC_PATH = '../server/static/'
 const PAGE_PATH = resolve(join(__dirname, STATIC_PATH, 'pages'))
 
 export default function (mdPath, opts = {}) {
-    mdPath = resolve(mdPath)
+    mdPath = isAbsolute(mdPath) ? mdPath : resolve(mdPath)
     
     if (!existsSync(mdPath)) {
         logger.error(`markdown file directory not exist`)
