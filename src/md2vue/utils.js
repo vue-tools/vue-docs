@@ -9,7 +9,7 @@ const DOC_PATH = resolve(join(__dirname, STATIC_PATH, 'docs'))
 const ROUTER_FILE_PATH = resolve(join(__dirname, STATIC_PATH, 'router/map.js'))
 
 let routerCode = [
-    'export default {\n',
+    'module.exports = {\n',
     '}'
 ]
 
@@ -84,7 +84,7 @@ function generateVueCode(name) {
 }
 
 function routerTemplate(name) {
-    return `    '/${name}': { meta: { title: '${name}' }, component: (resolve) => { require(['pages/${name}'], resolve) }},\n`
+    return `    '/${name}': { meta: { title: '${name}' }, component: function (resolve) { require(['pages/${name}'], resolve) }},\n`
 }
 
 function vueTemplate(name, componentName) {

@@ -18,7 +18,7 @@ configFile = resolve(join(cwd, args.length ? args.shift() : './docs.conf.js'))
 config = {
     port: 8888,
     webpack: {},
-    md: { dir: cwd, exclude: '' },
+    md: { dir: cwd, exclude: null },
     vue: { dir: join(cwd, 'build') }
 }
 
