@@ -5,7 +5,7 @@ import { existsSync } from 'fs'
 import merge from 'webpack-merge'
 import createServer from './server'
 import packageJson from '../package'
-import { resolve, join } from 'path'
+import { resolve, join, isAbsolute } from 'path'
 import buildConfig from './server/webpack.build.conf'
 
 let args, action, cwd, config, configFile
@@ -26,8 +26,8 @@ if (existsSync(configFile)) {
     config = Object.assign({}, config, require(configFile))
 }
 
-config.md.dir = resolve(join(cwd, config.md.dir))
-config.vue.dir = resolve(join(cwd, config.vue.dir))
+config.md.dir = isAbsolute(config.md.dir) ? config.md.dir : resolve(join(cwd, config.md.dir))
+config.vue.dir = isAbsolute(config.vue.dir) ? config.vue.dir : resolve(join(cwd, config.vue.dir))
 
 if (action === 'start') {
     logger.info(`Vue-docs v${packageJson.version} server started at http://0.0.0.0:${config.port}`)
