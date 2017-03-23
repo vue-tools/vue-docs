@@ -31,10 +31,6 @@ var ROUTER_FILE_PATH = (0, _path.resolve)((0, _path.join)(__dirname, STATIC_PATH
 
 var routerCode = ['export default {\n', '}'];
 
-if (!(0, _fs.existsSync)(DOC_PATH)) {
-    (0, _fs.mkdirSync)(DOC_PATH);
-}
-
 function add(targetPath, destPath) {
     var name = void 0,
         docPath = void 0;

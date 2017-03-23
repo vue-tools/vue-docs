@@ -45,10 +45,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var STATIC_PATH = '../server/static/';
 var PAGE_PATH = (0, _path.resolve)((0, _path.join)(__dirname, STATIC_PATH, 'pages'));
 
-if (!(0, _fs.existsSync)(PAGE_PATH)) {
-    (0, _fs.mkdirSync)(PAGE_PATH);
-}
-
 function getPagePath(path) {
     return (0, _path.resolve)((0, _path.join)(PAGE_PATH, (0, _path.basename)(path, '.md') + '.vue'));
 }
