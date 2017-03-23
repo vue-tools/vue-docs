@@ -1,6 +1,6 @@
 {
   "name": "vue-docs",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "vue docs",
   "scripts": {
     "prepublish": "npm run compile",
@@ -69,5 +69,6 @@
     "webpack-hot-middleware": "^2.10.0",
     "webpack-merge": "^4.1.0",
     "yamljs": "^0.2.8"
-  }
+  },
+  "devDependencies": {}
 }
