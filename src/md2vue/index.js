@@ -7,10 +7,6 @@ import { resolve, join, basename, extname } from 'path'
 const STATIC_PATH = '../server/static/'
 const PAGE_PATH = resolve(join(__dirname, STATIC_PATH, 'pages'))
 
-if (!existsSync(PAGE_PATH)) {
-    mkdirSync(PAGE_PATH)
-}
-
 export default function (mdPath, opts = {}) {
     mdPath = resolve(mdPath)
     

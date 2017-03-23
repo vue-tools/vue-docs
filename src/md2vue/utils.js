@@ -13,10 +13,6 @@ let routerCode = [
     '}'
 ]
 
-if (!existsSync(DOC_PATH)) {
-    mkdirSync(DOC_PATH)
-}
-
 export function add(targetPath, destPath) {
     let name, docPath
 
