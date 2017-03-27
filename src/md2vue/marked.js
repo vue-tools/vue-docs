@@ -7,6 +7,8 @@ let plugins = {
         return `${code}<pre class="${this.options.langPrefix}${lang}"><code>${highlight.highlightAuto(code).value}</code></pre>`
     },
     interface(marked, code, lang, highlight) {
+        code = marked(code).replace(/&#39;/ig, "'").replace('<p>', '').replace('</p>', '')
+
         try {
             return `<vue-doc-tabs :data='${JSON.stringify(yaml.parse(code), null, 2)}'></vue-doc-tabs>`
         } catch (e) {
