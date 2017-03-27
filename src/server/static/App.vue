@@ -205,7 +205,25 @@
         margin: 25% auto 0px;
     }
 
-    /**/
+    .vue-docs{
+        width: 1000px;
+        margin: 20px auto;
+    }
+
+    h1 {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    hr {
+        margin: 5px 0;
+        border-top: 1px solid transparent;
+    }
+
+    .uk-table {
+        margin-bottom: 0;
+    }
+
     .hljs-comment,
     .hljs-quote {
         color: #998;

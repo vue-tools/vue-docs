@@ -4,7 +4,7 @@ import highlight from 'highlight.js'
 
 let plugins = {
     example(marked, code, lang, highlight) {
-        return `${code}<h2 id="demo">code</h2><pre class="${this.options.langPrefix}${lang}"><code>${highlight.highlightAuto(code).value}</code></pre>`
+        return `${code}<pre class="${this.options.langPrefix}${lang}"><code>${highlight.highlightAuto(code).value}</code></pre>`
     },
     interface(marked, code, lang, highlight) {
         try {
