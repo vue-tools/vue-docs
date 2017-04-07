@@ -1,7 +1,7 @@
 <template>
-    <vt-tabs v-if="exist">
-        <vt-tabs-item v-if="data.props" active>
-            <span class="title" slot="title" active>Props</span>
+    <vt-tabs v-model="currentTab" @tab-click="TabClick" v-if="exist">
+        <vt-tabs-item v-if="data.props">
+            <span class="title" slot="title">Props</span>
             <vk-docs-props :props="data.props"></vk-docs-props>
         </vt-tabs-item>
         <vt-tabs-item v-if="data.slots">
@@ -28,6 +28,16 @@
                 let { props, slots, events } = this.data || {}
 
                 return props || slots || events
+            }
+        },
+        methods: {
+            TabClick(index){
+                this.currentTab = index
+            }  
+        },
+        data(){
+            return {
+                currentTab: 0
             }
         },
         components: {
