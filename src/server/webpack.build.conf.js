@@ -10,7 +10,7 @@ module.exports = {
         vendors: ['vue', 'vue-router']
     },
     output: {
-        publicPath: '/',
+        publicPath: '',
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].[hash:7].js',
         chunkFilename: 'js/[id].[hash:7].js'

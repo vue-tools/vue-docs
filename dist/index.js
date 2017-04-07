@@ -52,7 +52,7 @@ configFile = (0, _path.resolve)((0, _path.join)(cwd, args.length ? args.shift() 
 config = {
     port: 8888,
     webpack: {},
-    md: { dir: cwd, exclude: '' },
+    md: { dir: cwd, exclude: null },
     vue: { dir: (0, _path.join)(cwd, 'build') }
 };
 
@@ -60,8 +60,8 @@ if ((0, _fs.existsSync)(configFile)) {
     config = (0, _assign2.default)({}, config, require(configFile));
 }
 
-config.md.dir = (0, _path.resolve)((0, _path.join)(cwd, config.md.dir));
-config.vue.dir = (0, _path.resolve)((0, _path.join)(cwd, config.vue.dir));
+config.md.dir = (0, _path.isAbsolute)(config.md.dir) ? config.md.dir : (0, _path.resolve)((0, _path.join)(cwd, config.md.dir));
+config.vue.dir = (0, _path.isAbsolute)(config.vue.dir) ? config.vue.dir : (0, _path.resolve)((0, _path.join)(cwd, config.vue.dir));
 
 if (action === 'start') {
     _logger2.default.info('Vue-docs v' + _package2.default.version + ' server started at http://0.0.0.0:' + config.port);

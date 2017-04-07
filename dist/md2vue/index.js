@@ -7,14 +7,22 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (mdPath) {
     var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
+    var exclude = void 0,
+        watcher = void 0;
+
     mdPath = (0, _path.resolve)(mdPath);
+    exclude = [/node_modules/];
 
     if (!(0, _fs.existsSync)(mdPath)) {
         _logger2.default.error('markdown file directory not exist');
         return;
     }
 
-    var watcher = _chokidar2.default.watch(mdPath, { ignored: opts.exclude });
+    if (opts.exclude) {
+        exclude = exclude.concat(opts.exclude);
+    }
+
+    watcher = _chokidar2.default.watch(mdPath, { ignored: exclude });
     watcher.on('add', function (path) {
         return correctExt(path) && (0, _utils.add)(path, getPagePath(path));
     });

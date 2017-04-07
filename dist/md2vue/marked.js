@@ -31,9 +31,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var plugins = {
     example: function example(marked, code, lang, highlight) {
-        return code + '<h2 id="demo">code</h2><pre class="' + this.options.langPrefix + lang + '"><code>' + highlight.highlightAuto(code).value + '</code></pre>';
+        // fix vue `{`  `}`
+
+        var v = highlight.highlightAuto(code).value;
+
+        var regStart = /{|&#123;|&#x7b;/g;
+        var regEnd = /}|&#125;|&#x7d;/g;
+
+        v = v.replace(regStart, '<span>{</span>').replace(regEnd, '<span>}</span>');
+
+        return code + '<pre class="' + this.options.langPrefix + lang + '"><code>' + v + '</code></pre>';
     },
     interface: function _interface(marked, code, lang, highlight) {
+        code = marked(code).replace(/&#39;/ig, "'").replace('<p>', '').replace('</p>', '');
+
         try {
             return '<vue-doc-tabs :data=\'' + (0, _stringify2.default)(_yamljs2.default.parse(code), null, 2) + '\'></vue-doc-tabs>';
         } catch (e) {

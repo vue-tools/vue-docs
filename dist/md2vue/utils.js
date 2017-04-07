@@ -29,7 +29,7 @@ var STATIC_PATH = '../server/static/';
 var DOC_PATH = (0, _path.resolve)((0, _path.join)(__dirname, STATIC_PATH, 'docs'));
 var ROUTER_FILE_PATH = (0, _path.resolve)((0, _path.join)(__dirname, STATIC_PATH, 'router/map.js'));
 
-var routerCode = ['export default {\n', '}'];
+var routerCode = ['module.exports = {\n', '}'];
 
 function add(targetPath, destPath) {
     var name = void 0,
@@ -105,7 +105,7 @@ function generateVueCode(name) {
 }
 
 function routerTemplate(name) {
-    return '    \'/' + name + '\': { meta: { title: \'' + name + '\' }, component: (resolve) => { require([\'pages/' + name + '\'], resolve) }},\n';
+    return '    \'/' + name + '\': { meta: { title: \'' + name + '\' }, component: function (resolve) { require([\'pages/' + name + '\'], resolve) }},\n';
 }
 
 function vueTemplate(name, componentName) {
