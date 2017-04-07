@@ -38,7 +38,7 @@ var plugins = {
         var regStart = /{|&#123;|&#x7b;/g;
         var regEnd = /}|&#125;|&#x7d;/g;
 
-        v = v.replace(regStart, '<span>{</span>').replace(regEnd, '<span>}</span>');
+        v = v.replace(regStart, '<span class="hljs-template-variable">{</span>').replace(regEnd, '<span class="hljs-template-variable">}</span>');
 
         return code + '<pre class="' + this.options.langPrefix + lang + '"><code>' + v + '</code></pre>';
     },
