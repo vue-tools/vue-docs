@@ -114,17 +114,17 @@ function toVue(content) {
     script = dom.getElementsByTagName('script')[0]
 
     reg = {
-		style: /<style.*?<\/style>/gi,
+        style: /<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi,
 		script: /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi
 	}
 
     result = `<template>\n    <section>\n${content.replace(reg.style, '').replace(reg.script, '')}\n    </section>\n</template>`
 
-    if(style) {
+    if (style) {
 		result += `\n<style>\n${style.innerHTML}\n</style>`
 	}
 
-	if(script) {
+	if (script) {
 		result += `\n<script>\n${script.innerHTML}\n</script>`
 	}
 

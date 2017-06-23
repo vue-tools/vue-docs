@@ -126,7 +126,7 @@ function toVue(content) {
     script = dom.getElementsByTagName('script')[0];
 
     reg = {
-        style: /<style.*?<\/style>/gi,
+        style: /<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi,
         script: /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi
     };
 
