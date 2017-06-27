@@ -3,6 +3,7 @@ import webpack from 'webpack'
 import autoprefixer from 'autoprefixer'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import ServiceWorkerWebpackPlugin from 'serviceworker-webpack-plugin'
 
 module.exports = {
     entry: {
@@ -41,7 +42,16 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.resolve(__dirname, 'index.html')
-        })
+        }),
+        new ServiceWorkerWebpackPlugin({
+			entry: path.join(__dirname, 'sw.js'),
+			excludes: [
+				'**/.*',
+				'**/*.map',
+				'*.html',
+                '/'
+			]
+		})
     ],
     module: {
         loaders: [{

@@ -2,17 +2,18 @@ import path from 'path'
 import webpack from 'webpack'
 import autoprefixer from 'autoprefixer'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import ServiceWorkerWebpackPlugin from 'serviceworker-webpack-plugin'
 
 module.exports = {
-    entry: {
-        main: [path.resolve(__dirname, 'static/entry.js')]
-    },
-    output: {
+	entry: {
+		main: [path.resolve(__dirname, 'static/entry.js')]
+	},
+	output: {
 		publicPath: '',
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'bundle.js'
 	},
-    resolve: {
+	resolve: {
 		extensions: ['', '.js', '.css', '.vue', '.json'],
 		alias: {
 			'vue': 'vue/dist/vue.runtime.common.js',
@@ -21,7 +22,7 @@ module.exports = {
 			'components': path.resolve(__dirname, 'static/components')
 		}
 	},
-    plugins: [
+	plugins: [
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: '"production"'
@@ -31,9 +32,18 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
 			template: path.resolve(__dirname, 'index.html')
+		}),
+		new ServiceWorkerWebpackPlugin({
+			entry: path.join(__dirname, 'sw.js'),
+			excludes: [
+				'**/.*',
+				'**/*.map',
+				'*.html',
+				'/'
+			]
 		})
 	],
-    module: {
+	module: {
 		loaders: [{
 			test: /\.vue$/,
 			loader: 'vue'
@@ -61,9 +71,9 @@ module.exports = {
 		}]
 	},
 	babel: {
-        presets: ['es2015', 'stage-0'],
-        plugins: ['transform-vue-jsx', 'transform-runtime']
-    },
+		presets: ['es2015', 'stage-0'],
+		plugins: ['transform-vue-jsx', 'transform-runtime']
+	},
 	vue: {
 		postcss: [
 			autoprefixer({ browsers: ['last 7 versions'] })
