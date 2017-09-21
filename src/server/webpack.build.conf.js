@@ -3,9 +3,9 @@ import webpack from 'webpack'
 import autoprefixer from 'autoprefixer'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import ServiceWorkerWebpackPlugin from 'serviceworker-webpack-plugin'
+import { serviceWorkerConfig } from './config'
 
-module.exports = {
+let config = {
     entry: {
         main: [path.resolve(__dirname, 'static/entry.js')],
         vendors: ['vue', 'vue-router']
@@ -18,17 +18,18 @@ module.exports = {
     },
     resolve: {
         extensions: ['', '.js', '.css', '.vue', '.json'],
-		alias: {
-			'vue': 'vue/dist/vue.runtime.common.js',
-			'docs': path.resolve(__dirname, 'static/docs'),
-			'pages': path.resolve(__dirname, 'static/pages'),
+        alias: {
+            'vue': 'vue/dist/vue.runtime.common.js',
+            'docs': path.resolve(__dirname, 'static/docs'),
+            'pages': path.resolve(__dirname, 'static/pages'),
             'components': path.resolve(__dirname, 'static/components')
-		}
+        }
     },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: '"production"'
+                NODE_ENV: '"production"',
+                [serviceWorkerConfig.ENABLE_KEY]: process.env[serviceWorkerConfig.ENABLE_KEY]
             }
         }),
         new webpack.optimize.UglifyJsPlugin({
@@ -42,16 +43,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.resolve(__dirname, 'index.html')
-        }),
-        new ServiceWorkerWebpackPlugin({
-			entry: path.join(__dirname, 'sw.js'),
-			excludes: [
-				'**/.*',
-				'**/*.map',
-				'*.html',
-                '/'
-			]
-		})
+        })
     ],
     module: {
         loaders: [{
@@ -93,3 +85,13 @@ module.exports = {
         ]
     }
 }
+
+if (process.env[serviceWorkerConfig.ENABLE_KEY]) {
+    let ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
+    config.plugins.push(new ServiceWorkerWebpackPlugin({
+        entry: path.join(__dirname, 'sw.js'),
+        excludes: serviceWorkerConfig.excludes
+    }))
+}
+
+module.exports = config

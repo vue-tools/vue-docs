@@ -1,9 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _promise = require('babel-runtime/core-js/promise');
 
 var _promise2 = _interopRequireDefault(_promise);
@@ -24,7 +20,39 @@ var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
 
-exports.default = function (userWebpackConfig) {
+var _koa = require('koa');
+
+var _koa2 = _interopRequireDefault(_koa);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _webpack = require('webpack');
+
+var _webpack2 = _interopRequireDefault(_webpack);
+
+var _webpackMerge = require('webpack-merge');
+
+var _webpackMerge2 = _interopRequireDefault(_webpackMerge);
+
+var _webpackDocs = require('./webpack.docs.conf');
+
+var _webpackDocs2 = _interopRequireDefault(_webpackDocs);
+
+var _koaWebpackDevMiddleware = require('koa-webpack-dev-middleware');
+
+var _koaWebpackDevMiddleware2 = _interopRequireDefault(_koaWebpackDevMiddleware);
+
+var _koaWebpackHotMiddleware = require('koa-webpack-hot-middleware');
+
+var _koaWebpackHotMiddleware2 = _interopRequireDefault(_koaWebpackHotMiddleware);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _marked = /*#__PURE__*/_regenerator2.default.mark(readFile);
+
+module.exports = function (userWebpackConfig) {
     var compiler = void 0,
         app = void 0,
         webpackConfig = void 0;
@@ -73,7 +101,7 @@ exports.default = function (userWebpackConfig) {
     compiler = (0, _webpack2.default)(webpackConfig);
 
     app.use(webpackDevServer(compiler, webpackConfig.devServer));
-    app.use(_regenerator2.default.mark(function _callee(next) {
+    app.use( /*#__PURE__*/_regenerator2.default.mark(function _callee(next) {
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
@@ -105,38 +133,6 @@ exports.default = function (userWebpackConfig) {
     };
 };
 
-var _koa = require('koa');
-
-var _koa2 = _interopRequireDefault(_koa);
-
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
-
-var _webpack = require('webpack');
-
-var _webpack2 = _interopRequireDefault(_webpack);
-
-var _webpackMerge = require('webpack-merge');
-
-var _webpackMerge2 = _interopRequireDefault(_webpackMerge);
-
-var _webpackDocs = require('./webpack.docs.conf');
-
-var _webpackDocs2 = _interopRequireDefault(_webpackDocs);
-
-var _koaWebpackDevMiddleware = require('koa-webpack-dev-middleware');
-
-var _koaWebpackDevMiddleware2 = _interopRequireDefault(_koaWebpackDevMiddleware);
-
-var _koaWebpackHotMiddleware = require('koa-webpack-hot-middleware');
-
-var _koaWebpackHotMiddleware2 = _interopRequireDefault(_koaWebpackHotMiddleware);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _marked = [readFile].map(_regenerator2.default.mark);
-
 function webpackDevServer(compiler, devServer) {
     var hotOptions = {
         log: function log() {}
@@ -146,45 +142,46 @@ function webpackDevServer(compiler, devServer) {
 }
 
 function compose(middleware) {
-    return _regenerator2.default.mark(function _callee2(next) {
-        var i;
-        return _regenerator2.default.wrap(function _callee2$(_context3) {
-            while (1) {
-                switch (_context3.prev = _context3.next) {
-                    case 0:
-                        if (!next) {
-                            next = _regenerator2.default.mark(function noop() {
-                                return _regenerator2.default.wrap(function noop$(_context2) {
-                                    while (1) {
-                                        switch (_context2.prev = _context2.next) {
-                                            case 0:
-                                            case 'end':
-                                                return _context2.stop();
+    return (/*#__PURE__*/_regenerator2.default.mark(function _callee2(next) {
+            var i;
+            return _regenerator2.default.wrap(function _callee2$(_context3) {
+                while (1) {
+                    switch (_context3.prev = _context3.next) {
+                        case 0:
+                            if (!next) {
+                                next = /*#__PURE__*/_regenerator2.default.mark(function noop() {
+                                    return _regenerator2.default.wrap(function noop$(_context2) {
+                                        while (1) {
+                                            switch (_context2.prev = _context2.next) {
+                                                case 0:
+                                                case 'end':
+                                                    return _context2.stop();
+                                            }
                                         }
-                                    }
-                                }, noop, this);
-                            });
-                        }
+                                    }, noop, this);
+                                });
+                            }
 
-                        i = middleware.length;
+                            i = middleware.length;
 
 
-                        while (i--) {
-                            next = middleware[i].call(this, next);
-                        }
+                            while (i--) {
+                                next = middleware[i].call(this, next);
+                            }
 
-                        return _context3.delegateYield(next, 't0', 4);
+                            return _context3.delegateYield(next, 't0', 4);
 
-                    case 4:
-                        return _context3.abrupt('return', _context3.t0);
+                        case 4:
+                            return _context3.abrupt('return', _context3.t0);
 
-                    case 5:
-                    case 'end':
-                        return _context3.stop();
+                        case 5:
+                        case 'end':
+                            return _context3.stop();
+                    }
                 }
-            }
-        }, _callee2, this);
-    });
+            }, _callee2, this);
+        })
+    );
 }
 
 function readFile(compiler, filepath) {
@@ -208,5 +205,5 @@ function readFile(compiler, filepath) {
                     return _context4.stop();
             }
         }
-    }, _marked[0], this);
+    }, _marked, this);
 }

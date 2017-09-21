@@ -31,7 +31,7 @@ _vue2.default.use(_vueRouter2.default);
 var router = new _vueRouter2.default({
     base: '/',
     routes: (0, _keys2.default)(_map2.default).reduce(function (previous, current) {
-        return previous.push((0, _extends3.default)({ path: current }, _map2.default[current])), previous;
+        return previous.push((0, _extends3.default)({ path: current }, _map2.default[current])) && previous;
     }, []).concat({
         path: '*',
         meta: {

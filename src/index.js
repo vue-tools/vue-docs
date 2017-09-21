@@ -3,17 +3,23 @@ import logger from './logger'
 import webpack from 'webpack'
 import { existsSync } from 'fs'
 import merge from 'webpack-merge'
-import createServer from './server'
 import packageJson from '../package'
 import { resolve, join, isAbsolute } from 'path'
-import buildConfig from './server/webpack.build.conf'
+import { argv } from 'optimist'
+import { serviceWorkerConfig } from './server/config'
 
-let args, action, cwd, config, configFile
+let action, cwd, config, configFile, buildConfig, createServer
 
-args = process.argv.slice(2)
-action = args.shift()
+action = argv._.shift()
 cwd = process.cwd()
-configFile = resolve(join(cwd, args.length ? args.shift() : './docs.conf.js'))
+configFile = resolve(join(cwd, argv._.length ? argv._.shift() : './docs.conf.js'))
+
+if (argv.enableSw) {
+    process.env[serviceWorkerConfig.ENABLE_KEY] = true
+}
+
+buildConfig = require('./server/webpack.build.conf')
+createServer = require('./server')
 
 config = {
     port: 8888,
@@ -33,7 +39,7 @@ if (action === 'start') {
     logger.info(`Vue-docs v${packageJson.version} server started at http://0.0.0.0:${config.port}`)
     logger.info(`vue file directory at ${config.vue.dir}`)
     logger.info(`markdown file directory at ${config.md.dir}`)
-    
+
     md2vue(config.md.dir, config.md)
     createServer(config.webpack).listen(config.port)
 } else if (action === 'build') {

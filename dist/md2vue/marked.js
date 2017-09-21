@@ -61,7 +61,7 @@ _marked2.default.Renderer.prototype.code = function (code, lang, escaped) {
     } else if (lang && isFunction(plugin)) {
         var result = plugin.call(this, _marked2.default, code, lang, _highlight2.default);
 
-        return result ? result : code;
+        return result || code;
     }
 
     return '<pre class="' + this.options.langPrefix + escape(lang) + '"><code>' + _highlight2.default.highlightAuto(code).value + '</code></pre>';

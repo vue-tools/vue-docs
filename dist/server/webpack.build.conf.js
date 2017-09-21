@@ -1,5 +1,9 @@
 'use strict';
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
@@ -20,9 +24,11 @@ var _extractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 var _extractTextWebpackPlugin2 = _interopRequireDefault(_extractTextWebpackPlugin);
 
+var _config = require('./config');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = {
+var config = {
     entry: {
         main: [_path2.default.resolve(__dirname, 'static/entry.js')],
         vendors: ['vue', 'vue-router']
@@ -43,9 +49,9 @@ module.exports = {
         }
     },
     plugins: [new _webpack2.default.DefinePlugin({
-        'process.env': {
+        'process.env': (0, _defineProperty3.default)({
             NODE_ENV: '"production"'
-        }
+        }, _config.serviceWorkerConfig.ENABLE_KEY, process.env[_config.serviceWorkerConfig.ENABLE_KEY])
     }), new _webpack2.default.optimize.UglifyJsPlugin({
         compress: {
             warnings: false
@@ -92,3 +98,13 @@ module.exports = {
         postcss: [(0, _autoprefixer2.default)({ browsers: ['last 7 versions'] })]
     }
 };
+
+if (process.env[_config.serviceWorkerConfig.ENABLE_KEY]) {
+    var ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+    config.plugins.push(new ServiceWorkerWebpackPlugin({
+        entry: _path2.default.join(__dirname, 'sw.js'),
+        excludes: _config.serviceWorkerConfig.excludes
+    }));
+}
+
+module.exports = config;

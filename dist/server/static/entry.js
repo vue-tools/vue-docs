@@ -24,11 +24,20 @@ var _layout = require('components/layout');
 
 var _layout2 = _interopRequireDefault(_layout);
 
+var _config = require('../config');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var runtime = void 0;
+
+if ('serviceWorker' in navigator && process.env[_config.serviceWorkerConfig.ENABLE_KEY]) {
+    runtime = require('serviceworker-webpack-plugin/lib/runtime');
+    runtime.register();
+}
 
 _vue2.default.component('Layout', _layout2.default);
 _vue2.default.component('vue-doc-tabs', _tabs2.default);
 
 new _vue2.default((0, _extends3.default)({
-	router: _router2.default
+    router: _router2.default
 }, _App2.default)).$mount('#app');

@@ -22,32 +22,35 @@ var _webpackMerge = require('webpack-merge');
 
 var _webpackMerge2 = _interopRequireDefault(_webpackMerge);
 
-var _server = require('./server');
-
-var _server2 = _interopRequireDefault(_server);
-
 var _package = require('../package');
 
 var _package2 = _interopRequireDefault(_package);
 
 var _path = require('path');
 
-var _webpackBuild = require('./server/webpack.build.conf');
+var _optimist = require('optimist');
 
-var _webpackBuild2 = _interopRequireDefault(_webpackBuild);
+var _config = require('./server/config');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var args = void 0,
-    action = void 0,
+var action = void 0,
     cwd = void 0,
     config = void 0,
-    configFile = void 0;
+    configFile = void 0,
+    buildConfig = void 0,
+    createServer = void 0;
 
-args = process.argv.slice(2);
-action = args.shift();
+action = _optimist.argv._.shift();
 cwd = process.cwd();
-configFile = (0, _path.resolve)((0, _path.join)(cwd, args.length ? args.shift() : './docs.conf.js'));
+configFile = (0, _path.resolve)((0, _path.join)(cwd, _optimist.argv._.length ? _optimist.argv._.shift() : './docs.conf.js'));
+
+if (_optimist.argv.enableSw) {
+    process.env[_config.serviceWorkerConfig.ENABLE_KEY] = true;
+}
+
+buildConfig = require('./server/webpack.build.conf');
+createServer = require('./server');
 
 config = {
     port: 8888,
@@ -69,9 +72,9 @@ if (action === 'start') {
     _logger2.default.info('markdown file directory at ' + config.md.dir);
 
     (0, _md2vue2.default)(config.md.dir, config.md);
-    (0, _server2.default)(config.webpack).listen(config.port);
+    createServer(config.webpack).listen(config.port);
 } else if (action === 'build') {
-    (0, _webpack2.default)((0, _webpackMerge2.default)(_webpackBuild2.default, config.webpack, {
+    (0, _webpack2.default)((0, _webpackMerge2.default)(buildConfig, config.webpack, {
         output: {
             path: config.vue.dir
         }

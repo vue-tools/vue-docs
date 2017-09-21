@@ -6,7 +6,7 @@ import normalWebpackConfig from './webpack.docs.conf'
 import webpackDevMiddleware from 'koa-webpack-dev-middleware'
 import webpackHotMiddleware from 'koa-webpack-hot-middleware'
 
-export default function (userWebpackConfig) {
+module.exports = function(userWebpackConfig) {
     let compiler, app, webpackConfig
 
     app = koa()
@@ -32,14 +32,14 @@ export default function (userWebpackConfig) {
     compiler = webpack(webpackConfig)
 
     app.use(webpackDevServer(compiler, webpackConfig.devServer))
-    app.use(function* (next) {
+    app.use(function * (next) {
         this.type = 'text/html'
         this.body = yield readFile(compiler, path.join(compiler.outputPath, 'index.html'))
     })
 
     return {
         listen(port, callback) {
-            app.listen(port, callback || function (err) {
+            app.listen(port, callback || function(err) {
                 if (err) {
                     console.log(err)
                     return
@@ -61,9 +61,9 @@ function webpackDevServer(compiler, devServer) {
 }
 
 function compose(middleware) {
-    return function* (next) {
+    return function * (next) {
         if (!next) {
-            next = function* noop() {}
+            next = function * noop() {}
         }
 
         var i = middleware.length
@@ -76,7 +76,7 @@ function compose(middleware) {
     }
 }
 
-function* readFile(compiler, filepath) {
+function * readFile(compiler, filepath) {
     return new Promise((resolve, reject) => {
         compiler.outputFileSystem.readFile(filepath, (err, result) => {
             if (err) {

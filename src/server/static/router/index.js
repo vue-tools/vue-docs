@@ -6,16 +6,14 @@ Vue.use(Router)
 
 let router = new Router({
     base: '/',
-    routes: Object.keys(routes).reduce((previous, current) => {
-        return (previous.push({path: current, ...routes[current]}), previous)
-    }, []).concat({
+    routes: Object.keys(routes).reduce((previous, current) => previous.push({ path: current, ...routes[current] }) && previous, []).concat({
         path: '*',
         meta: {
             title: '404 - Not Found'
         },
         component: {
-            render(h){
-                return h('h3', {class: 'title-404'}, '404 - Not Found')
+            render(h) {
+                return h('h3', { class: 'title-404' }, '404 - Not Found')
             }
         }
     }),
