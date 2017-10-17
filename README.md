@@ -1,5 +1,3 @@
-
-
 # vue-docs
 
 让你的文档轻松成为一个 `VUE SPA`, 面向`vue`编程 ^_^
@@ -74,6 +72,11 @@ vue-docs build
 ## Deploy
 
 将 `docs`目录下的内容发布到 你的服务器即可访问， 发布到 `github pages` 可参考[vt-tabs](https://github.com/vue-tools/vt-tabs)
+
+## ChanageLog
+
+- 增加 editorconfig, eslint编码规范
+- 增加 enableSw参数， 控制是否支持 serviceWorker
 
 ## Reference
 
