@@ -38,7 +38,12 @@
         font-size: 1em;
     }
 
+    p {
+        font-size: 14px; /*no*/
+    }
+
     pre {
+        font-size: 14px; /*no*/
         overflow: auto;
         white-space: pre;
         white-space: pre-wrap;
@@ -91,7 +96,7 @@
 
     [type="search"] {
         -webkit-appearance: textfield;
-        outline-offset: -2px;
+        outline-offset: -2px; /*no*/
     }
 
     [type="search"]::-webkit-search-cancel-button,
@@ -182,8 +187,8 @@
     }
 
     ::-webkit-scrollbar {
-        width: 5px;
-        height: 5px;
+        width: 5px; /*no*/
+        height: 5px; /*no*/
     }
 
     ::-webkit-scrollbar-corner {
@@ -192,7 +197,7 @@
 
     ::-webkit-scrollbar-thumb {
         background-color: rgba(10, 10, 10, .2);
-        border-radius: 2px;
+        border-radius: 2px; /*no*/
     }
 
     ::-webkit-scrollbar-track {
@@ -200,24 +205,24 @@
     }
 
     .title-404 {
-        font-size: 18px;
+        font-size: 18px; /*no*/
         text-align: center;
-        margin: 25% auto 0px;
+        margin: 25% auto 0px; /*no*/
     }
 
     .vue-docs{
-        width: 1000px;
-        margin: 20px auto;
+        width: 1000px; /*no*/
+        margin: 20px auto; /*no*/
     }
 
     h1 {
-        padding-bottom: 10px;
-        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 10px; /*no*/
+        border-bottom: 1px solid #e5e5e5; /*no*/
     }
 
     hr {
-        margin: 5px 0;
-        border-top: 1px solid transparent;
+        margin: 5px 0; /*no*/
+        border-top: 1px solid transparent; /*no*/
     }
 
     .uk-table {

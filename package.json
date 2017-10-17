@@ -1,6 +1,6 @@
 {
   "name": "vue-docs",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "vue docs",
   "scripts": {
     "prepublish": "npm run lint && npm run compile",
