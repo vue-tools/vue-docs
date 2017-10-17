@@ -320,6 +320,25 @@
     .vk-docs-events .uk-text-center{
         display: none;
     }
+    .ui-tabs{
+        border: 1px solid #d3dce6 !important; /*no*/
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.12),0 0 6px 0 rgba(0,0,0,.04) !important; /*no*/
+    }
+    .ui-tabs .ui-tabs-item {
+        padding: 0 16px; /*no*/
+        height: 42px; /*no*/
+        line-height: 42px; /*no*/
+        font-size: 14px; /*no*/
+        margin-bottom: -1px; /*no*/
+    }
+    .ui-tabs .ui-tabs-content{
+        padding: 14px; /*no*/
+        font-size: 14px; /*no*/
+    }
+    .ui-tabs .ui-tabs-panel__content{
+        padding: 10px; /*no*/
+        margin-top: -1px; /*no*/
+    }
 </style>
 <template>
     <router-view></router-view>
