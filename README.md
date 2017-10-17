@@ -78,6 +78,10 @@ vue-docs build
 - 增加 editorconfig, eslint编码规范
 - 增加 enableSw参数， 控制是否支持 serviceWorker
 
+## 备注 
+
+请保证在使用`vue-docs`的时候， 项目中的 `vue-loader`和 `vue-docs`中的`vue-loader` major版本一致. 
+
 ## Reference
 
 - [vuikit docs](https://github.com/vuikit/vuikit-docs)
