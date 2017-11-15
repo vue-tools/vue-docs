@@ -63,7 +63,15 @@ let config = {
         }]
     },
     babel: {
-        presets: ['es2015', 'stage-0'],
+        presets: [[
+            "env",
+            {
+                "targets": [
+                    "last 5 versions"
+                ],
+                "loose": true
+            }
+        ], 'stage-0'],
         plugins: ['transform-vue-jsx', 'transform-runtime']
     },
     vue: {
